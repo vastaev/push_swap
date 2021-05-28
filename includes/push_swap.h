@@ -3,7 +3,7 @@
 
 #include <unistd.h>
 
-typedef struct s_list
+typedef struct s_listp
 {
 	int				value;
 	int				order;
@@ -11,10 +11,8 @@ typedef struct s_list
 	struct s_list	*next;
 	struct s_list	*prev;
 
-}				 t_list;
+}				 t_listp;
 
 int		validation_of_args(int argc, char **argv);
-
-int		ft_isdigit(int c);
 
 #endif //PUSH_SWAP_PUSH_SWAP_H

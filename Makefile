@@ -6,7 +6,7 @@
 #    By: cjoanne <cjoanne@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/21 12:30:03 by cjoanne           #+#    #+#              #
-#    Updated: 2021/05/11 19:04:57 by cjoanne          ###   ########.fr        #
+#    Updated: 2021/05/28 03:56:01 by cjoanne          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ RM		=	rm -f
 all : $(NAME)
 
 %.o : %.c
-	$(CC) $(СFLAGS) -I $(INCDIR) -c $< -o $@
+	$(CC) -g $(СFLAGS) -I $(INCDIR) -c $< -o $@
 
 $(NAME) : $(OBJS) $(INCDIR)$(HEADER)
 	@$(MAKE) -C $(dir $(LIBFT))

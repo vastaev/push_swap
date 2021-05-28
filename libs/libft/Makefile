@@ -6,7 +6,7 @@
 #    By: cjoanne <cjoanne@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/21 12:30:03 by cjoanne           #+#    #+#              #
-#    Updated: 2021/04/25 04:05:31 by cjoanne          ###   ########.fr        #
+#    Updated: 2021/05/28 06:02:01 by cjoanne          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS =		ft_isdigit.c		ft_memccpy.c		ft_memcmp.c\
 			ft_strlcat.c		ft_strlcpy.c		ft_strrchr.c\
 			ft_strnstr.c		ft_isascii.c		ft_strjoin.c\
 			ft_calloc.c			ft_substr.c			ft_strtrim.c\
-			ft_split.c			ft_strcmp.c\
+			ft_split.c			ft_strcmp.c			ft_isspace.c\
 			ft_lstnew.c			ft_lstdelone.c		ft_lstadd_front.c\
 			ft_lstsize.c		ft_lstlast.c		ft_lstadd_back.c\
 			ft_lstclear.c		ft_lstmap.c			ft_lstiter.c
@@ -38,7 +38,7 @@ $(NAME) : $(OBJS)
 	@ar rcs $(NAME) $?
 
 %.o : %.c
-	@gcc $(FLAGS) -c $< -o $@
+	@gcc -g $(FLAGS) -c $< -o $@
 
 clean :
 	@rm -f $(OBJS) $(OBJS_B)
