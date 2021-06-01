@@ -10,40 +10,71 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	push_swap
+NAME		=	push_swap
 
-HEADER	=	push_swap.h
+SRCS_LIST	=	push_swap.c\
+				validation.c
+SRCS_DIR	=	srcs/
+SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
-SRCS	=	srcs/push_swap.c\
-			srcs/validation.c
+OBJS_LIST	=	$(patsubst %.c, %.o, $(SRCS_LIST))
+OBJS_DIR	=	objects/
+OBJS		=	$(addprefix $(OBJS_DIR), $(OBJS_LIST))
 
-OBJS	=	$(SRCS:.c=.o)
+CC 			=	gcc
 
-CC 		=	gcc
+CFLAGS		=	-Wall -Wextra -Werror
 
-СFLAGS	=	-Wall -Wextra -Werror
+INCLUDES	=	-I$(LIBFT_HEADER) -I$(HEADERS_DIR)
 
-INCDIR	=	./includes/
+LIBFT_DIR = ./libs/libft/
+LIBFT_HEADER = $(LIBFT_DIR)includes/
+LIBFT		=	$(LIBFT_DIR)libft.a
 
-LIBFT	=	libs/libft/libft.a
+HEADERS_DIR =	./includes/
+HEADERS_LIST =	push_swap.h
+HEADERS =	$(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
-RM		=	rm -f
+LIBRARIES = -lft -L$(LIBFT_DIR)
+
+RM			=	rm -rf
+
+# COLORS
+GREEN = \033[0;32m
+BLUE= \033[0;34m
+RED = \033[0;31m
+RESET = \033[0m
+LIBA = libft.a
 
 all : $(NAME)
 
-%.o : %.c
-	$(CC) -g $(СFLAGS) -I $(INCDIR) -c $< -o $@
+$(NAME) : $(LIBFT) $(OBJS_DIR) $(OBJS)
+	@$(CC) $(LIBFT) $(LIBRARIES) $(INCLUDES) $(OBJS) -o $(NAME)
+	@echo "\n$(NAME): $(BLUE)$(NAME) object files were created$(RESET)"
+	@echo "$(NAME): $(GREEN)$(NAME) was created$(RESET)"
 
-$(NAME) : $(OBJS) $(INCDIR)$(HEADER)
-	@$(MAKE) -C $(dir $(LIBFT))
-	$(CC) $(LIBFT) $(OBJS) -o $(NAME)
+$(OBJS_DIR)%.o : $(SRCS_DIR)%.c
+	@$(CC) -g $(СFLAGS) $(INCLUDES) -c $< -o $@
+	@echo "$(BLUE)PUK$(RESET)\c"
+
+$(OBJS_DIR) :
+	@mkdir -p $(OBJS_DIR)
+	@echo "$(NAME): $(BLUE)creating $(NAME)$(RESET)"
+
+$(LIBFT):
+	@echo "$(NAME): $(BLUE)creating $(LIBA)$(RESET)"
+	@$(MAKE) -C $(LIBFT_DIR)
 
 clean :
-	$(RM) $(OBJS)
-	$(MAKE) clean -C $(dir $(LIBFT))
+	@$(RM) $(OBJS_DIR)
+	@$(MAKE) clean -C $(LIBFT_DIR)
+	@echo "$(NAME): $(RED)object files were deleted$(RESET)"
 
 fclean : clean
-	$(RM) $(NAME) $(LIBFT)
+	@$(RM) $(NAME)
+	@echo "$(NAME): $(RED)$(NAME) was deleted$(RESET)"
+	@$(RM) $(LIBFT)
+	@echo "$(NAME): $(RED)$(LIBA) was deleted$(RESET)"
 
 re : fclean all
 

@@ -1,11 +1,11 @@
 //part1
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+long long	ft_atoi(const char *str)
 {
-	int	shag;
-	int	res;
-	int	minus;
+	int			shag;
+	long long	res;
+	int			minus;
 
 	minus = 0;
 	res = 0;

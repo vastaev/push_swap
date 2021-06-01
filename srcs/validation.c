@@ -1,15 +1,21 @@
-#include "../includes/push_swap.h"
-#include "../libs/libft/libft.h"
+#include "push_swap.h"
+#include "libft.h"
+#include "limits.h"
 
-int			check_for_number(char *str);
-int			split_len(char **s);
-void		free_split(char **s);
+static int			check_for_number(char *str);
+static int			split_len(char **s);
+static void			free_split(char **s);
+int					*bubble_sort(int *arrayOfNumbers, int size);
 
-int	validation_of_args(int argc, char **argv)
+int	*validation_of_args(int argc, char **argv)
 {
 	size_t	i;
+	size_t	j;
+	int		*arrayOfNumbers;
 
 	i = argc;
+	j = 0;
+	arrayOfNumbers = malloc(sizeof(int) * argc - 1);
 	if (argc == 2)
 	{
 		argv = ft_split(argv[1], ' ');
@@ -17,21 +23,42 @@ int	validation_of_args(int argc, char **argv)
 	}
 	while (--i + (argc == 2))
 	{
-		if (check_for_number(argv[i]) == 0)
-			return (-1);
+		check_for_number(argv[i]);
+		arrayOfNumbers[j++] = (int)ft_atoi(argv[i]);
 	}
 	if (argc == 2)
 		free_split(argv);
-	return (0);
+	arrayOfNumbers = bubble_sort(arrayOfNumbers, argc - 1);
+	return (arrayOfNumbers);
 }
 
-int error_msg(void)
+int	*bubble_sort(int *arrayOfNumbers, int size)
 {
-	write(2, "Error\n", 6);
-	return (0);
+	int	i;
+	int	j;
+	int tmp;
+
+	tmp = 0;
+	i = 0;
+	j = size - 1;
+	while (i < size - 1)
+	{
+		while (j > i)
+		{
+			if (arrayOfNumbers[j - 1] > arrayOfNumbers[j])
+			{
+				tmp = arrayOfNumbers[j];
+				arrayOfNumbers[j] = arrayOfNumbers[j - 1];
+				arrayOfNumbers[j - 1] = tmp;
+			}
+			j--;
+		}
+		i++;
+	}
+	return (arrayOfNumbers);
 }
 
-int	split_len(char **s)
+static int	split_len(char **s)
 {
 	int	counter;
 
@@ -41,7 +68,7 @@ int	split_len(char **s)
 	return (counter);
 }
 
-void	free_split(char **s)
+static void	free_split(char **s)
 {
 	int len;
 	
@@ -55,23 +82,19 @@ void	free_split(char **s)
 	s = NULL;
 }
 
-int	check_for_number(char *str)
+static int	check_for_number(char *str)
 {
-	int	i;
+	long long	num;
 
-	i = 0;
+	num = ft_atoi(str);
+	if (num < INT_MIN || num > INT_MAX)
+		return (error_msg());
 	while (ft_isspace(*str))
 		str++;
 	if (*str == '+' || *str == '-')
-	{
 		str++;
-		i++;
-	}
-	while (ft_isdigit(*str) && i < 11)
-	{
+	while (ft_isdigit(*str))
 		str++;
-		i++;
-	}
 	if (*str == '\0')
 		return (1);
 	else
