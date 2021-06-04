@@ -1,7 +1,7 @@
 #include "push_swap.h"
 #include "limits.h"
 
-static void check_for_number(char *str);
+static void	check_for_number(char *str);
 static void	treat_array_of_args(t_stack *stack, int argc, char **argv);
 static void	treat_args_in_str(t_stack *stack, char **argv);
 static void	index_elements(t_stack *stack, int *arrayOfNumbers);
@@ -80,7 +80,7 @@ static void	index_elements(t_stack *stack, int *arrayOfNumbers)
 	}
 }
 
-static void check_for_number(char *str)
+static void	check_for_number(char *str)
 {
 	long long	num;
 
