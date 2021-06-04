@@ -4,9 +4,7 @@
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*concstr;
-	int		step;
 
-	step = 0;
 	if (!s1 || !s2)
 		return (NULL);
 	concstr = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);

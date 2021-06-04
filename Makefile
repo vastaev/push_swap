@@ -13,7 +13,10 @@
 NAME		=	push_swap
 
 SRCS_LIST	=	push_swap.c\
-				validation.c
+				validation.c\
+				utils.c\
+				utils_list.c\
+				utils_validation.c
 SRCS_DIR	=	srcs/
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
@@ -55,8 +58,7 @@ $(NAME) : $(LIBFT) $(OBJS_DIR) $(OBJS)
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@$(CC) -g $(СFLAGS) $(INCLUDES) -c $< -o $@
-	@echo "$(BLUE)PUK$(RESET)\c"
-
+	@echo "$(BLUE)`ruby -e "puts (0..1).to_a.shuffle.join('')"`$(RESET)\c"
 $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)
 	@echo "$(NAME): $(BLUE)creating $(NAME)$(RESET)"

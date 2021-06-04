@@ -86,7 +86,7 @@ $(OBJS_DIR) :
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@gcc -g $(FLAGS) $(INCLUDES) -c $< -o $@
-	@echo "$(BLUE)PUK$(RESET)\c"
+	@echo "$(BLUE)`ruby -e "puts (0..1).to_a.shuffle.join('')"`$(RESET)\c"
 
 clean :
 	@rm -rf $(OBJS_DIR)
