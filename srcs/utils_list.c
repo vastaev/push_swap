@@ -25,6 +25,18 @@ t_stack_elem	*find_last_in_list(t_stack_elem *elem)
 	return (ptr);
 }
 
+t_command	*find_last_command(t_command *elem)
+{
+	t_command	*ptr;
+
+	if (elem == NULL)
+		return (0);
+	ptr = elem;
+	while (ptr->next != NULL)
+		ptr = ptr->next;
+	return (ptr);
+}
+
 void	add_to_end_of_stack(t_stack *stack, t_stack_elem *elem)
 {
 	t_stack_elem	*ptr;

@@ -56,7 +56,8 @@ SRCS_LIST =	ft_isdigit.c\
 			ft_lstadd_back.c\
 			ft_lstclear.c\
 			ft_lstmap.c\
-			ft_lstiter.c
+			ft_lstiter.c\
+			ft_putstrnewline.c
 SRCS_DIR = srcs/
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
