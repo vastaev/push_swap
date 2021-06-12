@@ -15,6 +15,7 @@ typedef struct s_stack
 {
 	int				size;
 	t_stack_elem	*head;
+	t_stack_elem	*tail;
 }				t_stack;
 
 typedef struct s_command
@@ -38,12 +39,19 @@ int				find_index_of_num(int num, const int *sortedArray);
 
 //lists
 t_stack_elem	*create_new_element(int value);
-t_stack_elem	*find_last_in_list(t_stack_elem *elem);
-t_command		*find_last_command(t_command *elem);
-void			add_to_end_of_stack(t_stack *stack, t_stack_elem *elem);
+void			add_to_stack(t_stack *stack, t_stack_elem *elem);
+
+//actions
+void			sn(t_stack *stack, const char *name, t_command_list *list);
+void			ss(t_stack *a,
+					t_stack *b,
+					const char *name,
+					t_command_list *list);
+void			rn(t_stack *stack, const char *name, t_command_list *list);
 
 //commands
 void			add_command_to_list(t_command_list *list, t_command *command);
+void			print_commands(t_command_list *list);
 t_command		*create_command(const char *name);
 
 //utils

@@ -16,17 +16,21 @@ t_command	*create_command(const char *name)
 
 void	add_command_to_list(t_command_list *list, t_command *command)
 {
-	t_command	*last;
+	t_command	*ptr;
 
-	if (!list->head)
-		list->head = command;
-	else
+	if (list && command)
 	{
-		last = list->head;
-		last = find_last_command(last);
-		last->next = command;
+		if (list->head == NULL)
+			list->head = command;
+		else
+		{
+			ptr = list->head;
+			while (ptr->next)
+				ptr = ptr->next;
+			ptr->next = command;
+		}
+		list->size++;
 	}
-	list->size++;
 }
 
 void	print_commands(t_command_list *list)

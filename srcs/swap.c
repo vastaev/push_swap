@@ -1,29 +1,31 @@
 #include "push_swap.h"
 
-void	swap_two_elems(t_stack_elem *first,
-					t_stack_elem *second,
-					t_stack *stack)
-{
-	t_stack_elem	*next;
-	t_stack_elem	*previous;
-
-	next = second->next;
-	previous = first->previous;
-	first->next = next;
-	first->previous = second;
-	next->previous = first;
-	second->previous = previous;
-	second->next = first;
-	previous->next = second;
-	stack->head = second;
-}
-
 void	sn(t_stack *stack,
-		   const char *name,
-		   t_command_list *list)
+			const char *name,
+			t_command_list *list)
 {
 	if (stack && stack->head && stack->size >= 2)
-		swap_two_elems(stack->head, stack->head->next, stack);
+	{
+		stack->head->next->next->previous = stack->head;
+		stack->head = stack->head->next;
+		stack->head->previous = NULL;
+		stack->head->next->previous->next = stack->head->next;
+		stack->head->next = stack->head->next->previous;
+		stack->head->next->previous = stack->head;
+	}
+	if (name && !list)
+		ft_putstrnewline(name);
+	if (name && list)
+		add_command_to_list(list, create_command(name));
+}
+
+void	ss(t_stack *a,
+			t_stack *b,
+			const char *name,
+			t_command_list *list)
+{
+	sn(a, NULL, NULL);
+	sn(b, NULL, NULL);
 	if (name && !list)
 		ft_putstrnewline(name);
 	if (name && list)

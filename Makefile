@@ -15,8 +15,10 @@ NAME		=	push_swap
 SRCS_LIST	=	push_swap.c\
 				validation.c\
 				utils.c\
-				utils_list.c\
-				utils_validation.c
+				utils_stack.c\
+				utils_validation.c\
+				commands.c\
+				swap.c
 SRCS_DIR	=	srcs/
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 

@@ -14,6 +14,7 @@ t_stack	*validation_of_args(int argc, char **argv)
 	if (stackA == NULL)
 		return (error_msg());
 	stackA->head = NULL;
+	stackA->tail = NULL;
 	stackA->size = 0;
 	if (argc == 2)
 	{
@@ -41,7 +42,7 @@ static void	treat_args_in_str(t_stack *stack, char **argv)
 	{
 		check_for_number(argv[j]);
 		arrayOfNumbers[j] = (int)ft_atoi(argv[j]);
-		add_to_end_of_stack(stack, create_new_element(arrayOfNumbers[j]));
+		add_to_stack(stack, create_new_element(arrayOfNumbers[j]));
 		j++;
 	}
 	bubble_sort(arrayOfNumbers, i);
@@ -61,7 +62,7 @@ static void	treat_array_of_args(t_stack *stack, int argc, char **argv)
 	{
 		check_for_number(argv[i]);
 		arrayOfNumbers[i - 1] = (int)ft_atoi(argv[i]);
-		add_to_end_of_stack(stack, create_new_element(arrayOfNumbers[i - 1]));
+		add_to_stack(stack, create_new_element(arrayOfNumbers[i - 1]));
 		i++;
 	}
 	bubble_sort(arrayOfNumbers, i - 1);
