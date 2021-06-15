@@ -85,6 +85,8 @@ static void	check_for_number(char *str)
 {
 	long long	num;
 
+	if (ft_strlen(str) > 13)
+		error_msg();
 	num = ft_atoi(str);
 	if (num < INT_MIN || num > INT_MAX)
 		error_msg();

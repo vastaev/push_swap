@@ -18,7 +18,9 @@ SRCS_LIST	=	push_swap.c\
 				utils_stack.c\
 				utils_validation.c\
 				commands.c\
-				swap.c
+				swap.c\
+				push.c\
+				reverse_rotate.c
 SRCS_DIR	=	srcs/
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 

@@ -7,7 +7,7 @@ int	find_index_of_num(int num, const int *sortedArray)
 	i = 0;
 	while (num != sortedArray[i])
 		i++;
-	return (i);
+	return (i + 1);
 }
 
 int	split_len(char **s)

@@ -37,6 +37,11 @@ void			free_split(char **s);
 int				*bubble_sort(int *arrayOfNumbers, int size);
 int				find_index_of_num(int num, const int *sortedArray);
 
+//solving
+void			solve(t_stack *stackA, t_stack *stackB, t_command_list *list);
+int				is_there_lower_than_mid(t_stack *stackA, int mid);
+
+
 //lists
 t_stack_elem	*create_new_element(int value);
 void			add_to_stack(t_stack *stack, t_stack_elem *elem);
@@ -48,6 +53,8 @@ void			ss(t_stack *a,
 					const char *name,
 					t_command_list *list);
 void			rn(t_stack *stack, const char *name, t_command_list *list);
+void			rrn(t_stack *stack, const char *name, t_command_list *list);
+void			pn(t_stack *to, t_stack *from, const char *name, t_command_list *list);
 
 //commands
 void			add_command_to_list(t_command_list *list, t_command *command);
