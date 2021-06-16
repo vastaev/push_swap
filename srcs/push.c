@@ -34,6 +34,7 @@ void	push(t_stack *stack, t_stack_elem *elem)
 		if (!stack->head)
 		{
 			stack->head = elem;
+			stack->tail = elem;
 			stack->head->next = NULL;
 			stack->head->previous = NULL;
 		}

@@ -9,6 +9,7 @@ int	main(int argc, char **argv)
 	t_stack_elem	*ptr;
 	t_command_list *list;
 	t_command 		*comand;
+	t_alg_vars		*algVars;
 
 	if (argc < 2)
 		exit(0);
@@ -108,7 +109,10 @@ int	main(int argc, char **argv)
 //		printf("%d\n", ptr->order);
 //		ptr = ptr->next;
 //	}
-
-	solve(stackA, stackB, list);
+	algVars = (t_alg_vars *)malloc(sizeof(t_alg_vars));
+	algVars->next_to_sort = 0;
+	algVars->max = 0;
+	algVars->mid = 0;
+	solve(stackA, stackB, list, algVars);
 	return (0);
 }

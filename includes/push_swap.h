@@ -30,6 +30,13 @@ typedef struct s_command_list
 	t_command			*head;
 }						t_command_list;
 
+typedef struct s_alg_vars
+{
+	int		mid;
+	int		next_to_sort;
+	int		max;
+}			t_alg_vars;
+
 //validation and indexing
 t_stack			*validation_of_args(int argc, char **argv);
 int				split_len(char **s);
@@ -38,8 +45,9 @@ int				*bubble_sort(int *arrayOfNumbers, int size);
 int				find_index_of_num(int num, const int *sortedArray);
 
 //solving
-void			solve(t_stack *stackA, t_stack *stackB, t_command_list *list);
-int				is_there_lower_than_mid(t_stack *stackA, int mid);
+void	solve(t_stack *stackA, t_stack *stackB, t_command_list *list,
+			  t_alg_vars *algVars);
+int	is_there_lower_than_mid(t_stack *stack, t_alg_vars *algVars);
 
 
 //lists
