@@ -9,9 +9,10 @@ int	is_there_lower_than_mid(t_stack *stack, t_alg_vars *algVars)
 	{
 		if (ptr->order == algVars->next_to_sort)
 			return (2);
-		else if (ptr->order <= algVars->mid)
+		if (ptr->order <= algVars->mid)
 			return (1);
 		ptr = ptr->next;
 	}
 	return (0);
 }
+

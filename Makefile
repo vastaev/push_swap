@@ -20,7 +20,10 @@ SRCS_LIST	=	push_swap.c\
 				commands.c\
 				swap.c\
 				push.c\
-				reverse_rotate.c
+				reverse_rotate.c\
+				rotate.c\
+				solve.c\
+				solve_utils.c
 SRCS_DIR	=	srcs/
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 

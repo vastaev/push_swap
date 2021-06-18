@@ -110,9 +110,9 @@ int	main(int argc, char **argv)
 //		ptr = ptr->next;
 //	}
 	algVars = (t_alg_vars *)malloc(sizeof(t_alg_vars));
-	algVars->next_to_sort = 0;
 	algVars->max = 0;
 	algVars->mid = 0;
+	algVars->flag = 1;
 	solve(stackA, stackB, list, algVars);
 	return (0);
 }

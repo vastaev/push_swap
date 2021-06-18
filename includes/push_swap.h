@@ -7,6 +7,7 @@ typedef struct s_stack_elem
 {
 	int					order;
 	int					value;
+	int					flag;
 	struct s_stack_elem	*next;
 	struct s_stack_elem	*previous;
 }				t_stack_elem;
@@ -35,6 +36,7 @@ typedef struct s_alg_vars
 	int		mid;
 	int		next_to_sort;
 	int		max;
+	int		flag;
 }			t_alg_vars;
 
 //validation and indexing
