@@ -11,7 +11,6 @@ t_stack_elem	*create_new_element(int value)
 	newElement->next = NULL;
 	newElement->previous = NULL;
 	newElement->order = -1;
-	newElement->flag = 0;
 	return (newElement);
 }
 

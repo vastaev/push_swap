@@ -11,6 +11,7 @@ t_stack_elem	*pop(t_stack *stack)
 		{
 			elem = stack->head;
 			stack->head = NULL;
+			stack->tail = NULL;
 			elem->next = NULL;
 			elem->previous = NULL;
 		}

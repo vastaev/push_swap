@@ -15,14 +15,14 @@ int	main(int argc, char **argv)
 		exit(0);
 	stackA = validation_of_args(argc, argv);
 
-	ptr = stackA->head;
-	while (ptr)
-	{
-		printf("%d ", ptr->value);
-		printf("%d\n", ptr->order);
-		ptr = ptr->next;
-	}
-	printf("%d\n", stackA->size);
+//	ptr = stackA->head;
+//	while (ptr)
+//	{
+//		printf("%d ", ptr->value);
+//		printf("%d\n", ptr->order);
+//		ptr = ptr->next;
+//	}
+//	printf("%d\n", stackA->size);
 	list = malloc(sizeof(t_command_list));
 	list->head = NULL;
 	list->size = 0;
@@ -112,7 +112,9 @@ int	main(int argc, char **argv)
 	algVars = (t_alg_vars *)malloc(sizeof(t_alg_vars));
 	algVars->max = 0;
 	algVars->mid = 0;
-	algVars->flag = 1;
+	algVars->next_to_sort = stackA->size - 1;
 	solve(stackA, stackB, list, algVars);
+	//printf("\n\n");
+	print_commands(list);
 	return (0);
 }

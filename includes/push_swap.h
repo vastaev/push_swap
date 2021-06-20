@@ -1,13 +1,15 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# define HEAD 1
+# define TAIL 0
+
 # include "libft.h"
 
 typedef struct s_stack_elem
 {
 	int					order;
 	int					value;
-	int					flag;
 	struct s_stack_elem	*next;
 	struct s_stack_elem	*previous;
 }				t_stack_elem;
@@ -36,7 +38,6 @@ typedef struct s_alg_vars
 	int		mid;
 	int		next_to_sort;
 	int		max;
-	int		flag;
 }			t_alg_vars;
 
 //validation and indexing
@@ -50,6 +51,8 @@ int				find_index_of_num(int num, const int *sortedArray);
 void	solve(t_stack *stackA, t_stack *stackB, t_command_list *list,
 			  t_alg_vars *algVars);
 int	is_there_lower_than_mid(t_stack *stack, t_alg_vars *algVars);
+int	calculate_steps(t_stack_elem *ptr, int next_to_sort, int flag);
+
 
 
 //lists
