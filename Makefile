@@ -23,7 +23,8 @@ SRCS_LIST	=	push_swap.c\
 				reverse_rotate.c\
 				rotate.c\
 				solve.c\
-				solve_utils.c
+				solve_utils.c\
+				for_free.c
 SRCS_DIR	=	srcs/
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 

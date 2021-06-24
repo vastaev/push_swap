@@ -36,7 +36,8 @@ typedef struct s_command_list
 typedef struct s_alg_vars
 {
 	int		mid;
-	int		next_to_sort;
+	int		prev_max;
+	int		next_min;
 	int		max;
 }			t_alg_vars;
 
@@ -50,8 +51,7 @@ int				find_index_of_num(int num, const int *sortedArray);
 //solving
 void	solve(t_stack *stackA, t_stack *stackB, t_command_list *list,
 			  t_alg_vars *algVars);
-int	is_there_lower_than_mid(t_stack *stack, t_alg_vars *algVars);
-int	calculate_steps(t_stack_elem *ptr, int next_to_sort, int flag);
+int	calc_steps(t_stack_elem *ptr, int next_to_sort, int flag);
 
 
 
@@ -73,6 +73,10 @@ void			pn(t_stack *to, t_stack *from, const char *name, t_command_list *list);
 void			add_command_to_list(t_command_list *list, t_command *command);
 void			print_commands(t_command_list *list);
 t_command		*create_command(const char *name);
+
+//freeing
+void			free_stack(t_stack *stack);
+void			free_commands(t_command_list *list);
 
 //utils
 void			*error_msg(void);
