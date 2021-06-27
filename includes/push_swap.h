@@ -35,8 +35,12 @@ typedef struct s_command_list
 
 typedef struct s_steps_info
 {
-	int	steps;
-	int	isHead;
+	int				steps;
+	int				isHead;
+	int				stepsA;
+	int				isHeadA;
+	int				sumSteps;
+	t_stack_elem	*minA;
 }				t_steps_info;
 
 typedef struct s_alg_vars
@@ -57,7 +61,9 @@ int				find_index_of_num(int num, const int *sortedArray);
 //solving
 void	solve(t_stack *stackA, t_stack *stackB, t_command_list *list,
 			  t_alg_vars *algVars);
-int	calc_steps(t_stack_elem *ptr, int startRange, int endRange, int flag);
+int	calc_steps_b(t_stack_elem *ptr, int startRange, int endRange, int flag);
+int	calc_steps_a(t_stack_elem *ptr, int startRange, int flag);
+
 
 
 
