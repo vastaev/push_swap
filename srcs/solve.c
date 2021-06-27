@@ -25,11 +25,7 @@ void	do_commands(t_stack *stackA, t_stack *stackB, t_command_list *list,
 void	do_commands_a(t_stack *stackA, t_stack *stackB, t_command_list *list,
 					  t_steps_info steps)
 {
-	if (steps.stepsA == 1 && steps.isHeadA == HEAD)
-	{
-		sn(stackB, "sa", list);
-	}
-	else if (steps.isHeadA == HEAD)
+	if (steps.isHeadA == HEAD)
 	{
 		while (steps.stepsA--)
 			rn(stackA, "ra", list);
@@ -37,7 +33,7 @@ void	do_commands_a(t_stack *stackA, t_stack *stackB, t_command_list *list,
 	else if (steps.isHeadA == TAIL)
 	{
 		while (steps.stepsA--)
-			rrn(stackB, "rra", list);
+			rrn(stackA, "rra", list);
 	}
 }
 
@@ -73,7 +69,7 @@ int	find_end_of_range(t_stack *stackA, t_stack_elem *startRange)
 	endRange = 0;
 	ptr = startRange;
 	if (!ptr || !ptr->next)
-		return (-1);
+		return (stackA->head->order);
 	else if (ptr->order < ptr->next->order)
 		endRange = ptr->next->order;
 	else while (ptr && ptr->next && ptr->order < ptr->next->order)
@@ -130,23 +126,22 @@ t_steps_info init_struct_info(void)
 	minInfo.isHead = -1;
 	minInfo.stepsA = -1;
 	minInfo.isHeadA = -1;
-	minInfo.sumSteps = 42;
+	minInfo.sumSteps = 4242;
 	minInfo.minA = NULL;
+	// add second ptr
 	return (minInfo);
 }
 
-t_stack_elem *move_startRange(t_stack *stackA, int endRange)
+t_stack_elem *move_startRange(t_stack *stackA, int endRange, t_stack_elem *stR)
 {
 	t_stack_elem *ptr;
 
+	if (stR->next == NULL)
+
 	ptr = stackA->head;
 	while (ptr->order != endRange)
-	{
-		if (ptr->next == NULL)
-			return (NULL);
 		ptr = ptr->next;
-	}
-	return (ptr->next);
+	return (ptr);
 }
 
 void	sortToStackA(t_stack *stackA, t_stack *stackB, t_alg_vars *algVars,
@@ -157,12 +152,11 @@ void	sortToStackA(t_stack *stackA, t_stack *stackB, t_alg_vars *algVars,
 	t_steps_info	minInfo;
 	t_steps_info	newMinInfo;
 
-
 	while (stackB->size)
 	{
 		minInfo = init_struct_info();
 		startRange = stackA->head;
-		while (startRange && startRange->next)
+		while () // hueta
 		{
 			endRange = find_end_of_range(stackA, startRange);
 			while (endRange == 0) // is it needed? maybe if?
@@ -170,12 +164,12 @@ void	sortToStackA(t_stack *stackA, t_stack *stackB, t_alg_vars *algVars,
 				startRange = startRange->next;
 				endRange = find_end_of_range(stackA, startRange);
 			}
-			newMinInfo = get_min(stackA, stackB,minInfo,
+			newMinInfo = get_min(stackA, stackB, minInfo,
 								 startRange->order, endRange);
-			if (newMinInfo.sumSteps < minInfo.sumSteps)
+			if (newMinInfo.sumSteps <= minInfo.sumSteps)
 				minInfo = newMinInfo;
 			//move to next element of end of range
-			startRange = move_startRange(stackA, endRange);
+			startRange = move_startRange(stackA, endRange); //? wrong endrange?
 		}
 		new_do_commands(stackA, stackB, list, minInfo);
 	}
