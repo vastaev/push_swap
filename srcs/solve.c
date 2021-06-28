@@ -46,7 +46,7 @@ void	new_do_commands(t_stack *stackA, t_stack *stackB, t_command_list *list,
 		sn(stackB, "sb", list);
 		pn(stackA, stackB, "pa", list);
 	}
-	else if (steps.isHead == HEAD)
+	if (steps.isHead == HEAD)
 	{
 		while (steps.steps--)
 			rn(stackB, "rb", list);
@@ -58,7 +58,8 @@ void	new_do_commands(t_stack *stackA, t_stack *stackB, t_command_list *list,
 			rrn(stackB, "rrb", list);
 		pn(stackA, stackB, "pa", list);
 	}
-	sn(stackA, "sa", list);
+	if (stackA->head->order > stackA->head->next->order)
+		sn(stackA, "sa", list);
 }
 
 int	find_end_of_range(t_stack *stackA, t_stack_elem *startRange)
@@ -132,16 +133,23 @@ t_steps_info init_struct_info(void)
 	return (minInfo);
 }
 
-t_stack_elem *move_startRange(t_stack *stackA, int endRange, t_stack_elem *stR)
+t_stack_elem *move_startRange(t_stack *stackA, int endRange)
 {
 	t_stack_elem *ptr;
-
-	if (stR->next == NULL)
 
 	ptr = stackA->head;
 	while (ptr->order != endRange)
 		ptr = ptr->next;
 	return (ptr);
+}
+
+void sendToTop(t_stack *stackA, t_alg_vars *algVars, t_command_list *list)
+{
+	t_stack_elem	*ptr;
+
+	ptr = stackA->tail;
+	while (ptr->previous->order != algVars->max)
+		rrn(stackA, "rra", list);
 }
 
 void	sortToStackA(t_stack *stackA, t_stack *stackB, t_alg_vars *algVars,
@@ -151,12 +159,14 @@ void	sortToStackA(t_stack *stackA, t_stack *stackB, t_alg_vars *algVars,
 	int 			endRange;
 	t_steps_info	minInfo;
 	t_steps_info	newMinInfo;
+	int 			flag;
 
 	while (stackB->size)
 	{
 		minInfo = init_struct_info();
 		startRange = stackA->head;
-		while () // hueta
+		flag = 0;
+		while (flag < 2) // hueta
 		{
 			endRange = find_end_of_range(stackA, startRange);
 			while (endRange == 0) // is it needed? maybe if?
@@ -168,8 +178,9 @@ void	sortToStackA(t_stack *stackA, t_stack *stackB, t_alg_vars *algVars,
 								 startRange->order, endRange);
 			if (newMinInfo.sumSteps <= minInfo.sumSteps)
 				minInfo = newMinInfo;
-			//move to next element of end of range
-			startRange = move_startRange(stackA, endRange); //? wrong endrange?
+			if (startRange->order == 1)
+				flag++;
+			startRange = move_startRange(stackA, endRange);
 		}
 		new_do_commands(stackA, stackB, list, minInfo);
 	}
