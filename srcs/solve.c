@@ -178,7 +178,7 @@ void	sortToStackA(t_stack *stackA, t_stack *stackB, t_alg_vars *algVars,
 								 startRange->order, endRange);
 			if (newMinInfo.sumSteps <= minInfo.sumSteps)
 				minInfo = newMinInfo;
-			if (startRange->order == 1)
+			if (endRange == algVars->max)
 				flag++;
 			startRange = move_startRange(stackA, endRange);
 		}
@@ -194,8 +194,8 @@ void	sendToStackB(t_stack *stackA, t_stack *stackB, t_alg_vars *algVars,
 		if (stackA->head->order == 1 || stackA->head->order == algVars->max)
 			rn(stackA, "ra", list);
 		pn(stackB, stackA, "pb", list);
-		if (stackB->head->order > algVars->max / 2 && stackB->head->next)
-			rn(stackB, "rb", list);
+//		if (stackB->head->order > algVars->max / 2 && stackB->head->next)
+//			rn(stackB, "rb", list);
 	}
 }
 
