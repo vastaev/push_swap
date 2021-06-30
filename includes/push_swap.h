@@ -61,8 +61,9 @@ int				find_index_of_num(int num, const int *sortedArray);
 //solving
 void	solve(t_stack *stackA, t_stack *stackB, t_command_list *list,
 			  t_alg_vars *algVars);
-int	calc_steps_b(t_stack_elem *ptr, int startRange, int endRange, int flag);
-int	calc_steps_a(t_stack_elem *ptr, int startRange, int flag);
+void	calc_steps(t_stack *stackA, t_stack *stackB, t_alg_vars *algVars,
+				   t_steps_info *minInfo);
+int		to_compare(int num1, int num2);
 
 
 

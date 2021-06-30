@@ -47,6 +47,7 @@ static void	treat_args_in_str(t_stack *stack, char **argv)
 	}
 	bubble_sort(arrayOfNumbers, i);
 	index_elements(stack, arrayOfNumbers);
+	free(arrayOfNumbers);
 }
 
 static void	treat_array_of_args(t_stack *stack, int argc, char **argv)
@@ -67,6 +68,7 @@ static void	treat_array_of_args(t_stack *stack, int argc, char **argv)
 	}
 	bubble_sort(arrayOfNumbers, i - 1);
 	index_elements(stack, arrayOfNumbers);
+	free(arrayOfNumbers);
 }
 
 static void	index_elements(t_stack *stack, int *arrayOfNumbers)

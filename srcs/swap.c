@@ -13,7 +13,6 @@ void	sn(t_stack *stack,
 		stack->head->next->next = NULL;
 		stack->tail = stack->head->next;
 		stack->tail->previous = stack->head;
-		stack->tail->next = stack->head;
 	}
 	if (stack && stack->head && stack->size > 2)
 	{

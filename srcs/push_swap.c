@@ -6,7 +6,7 @@ int	main(int argc, char **argv)
 {
 	t_stack			*stackA;
 	t_stack			*stackB;
-	t_command_list *list;
+	t_command_list	*list;
 	t_alg_vars		*algVars;
 
 	if (argc < 2)
