@@ -22,6 +22,8 @@ t_stack_elem	*pop(t_stack *stack)
 			stack->head->previous = NULL;
 			elem->next = NULL;
 			elem->previous = NULL;
+			stack->tail->next = stack->head;
+			stack->head->previous = stack->tail;
 		}
 		stack->size--;
 	}
@@ -45,6 +47,8 @@ void	push(t_stack *stack, t_stack_elem *elem)
 			elem->next = stack->head;
 			stack->head = elem;
 			stack->head->previous = NULL;
+			stack->tail->next = stack->head;
+			stack->head->previous = stack->tail;
 		}
 		stack->size++;
 	}

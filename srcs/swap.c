@@ -13,6 +13,7 @@ void	sn(t_stack *stack,
 		stack->head->next->next = NULL;
 		stack->tail = stack->head->next;
 		stack->tail->previous = stack->head;
+		stack->tail->next = stack->head;
 	}
 	if (stack && stack->head && stack->size > 2)
 	{
@@ -22,6 +23,8 @@ void	sn(t_stack *stack,
 		stack->head->next->previous->next = stack->head->next;
 		stack->head->next = stack->head->next->previous;
 		stack->head->next->previous = stack->head;
+		stack->head->previous = stack->tail;
+		stack->tail->next = stack->head;
 	}
 	if (name && !list)
 		ft_putstrnewline(name);

@@ -1,8 +1,10 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# define HEAD 1
-# define TAIL 0
+# define R 1
+# define RR 0
+# define true 1
+# define false 0
 
 # include "libft.h"
 
@@ -35,19 +37,17 @@ typedef struct s_command_list
 
 typedef struct s_steps_info
 {
+	t_stack_elem	*elemB;
+	int				directionB;
+	t_stack_elem	*elemA;
+	int				directionA;
 	int				steps;
-	int				isHead;
-	int				stepsA;
-	int				isHeadA;
-	int				sumSteps;
-	t_stack_elem	*minA;
+	int				isSet;
 }				t_steps_info;
 
 typedef struct s_alg_vars
 {
 	int		mid;
-	int		prev_max;
-	int		next_min;
 	int		max;
 }			t_alg_vars;
 
@@ -78,7 +78,11 @@ void			ss(t_stack *a,
 					const char *name,
 					t_command_list *list);
 void			rn(t_stack *stack, const char *name, t_command_list *list);
+void			rr(t_stack *stackA, t_stack *stackB, const char *name,
+				   t_command_list *list);
 void			rrn(t_stack *stack, const char *name, t_command_list *list);
+void			rrr(t_stack *stackA, t_stack *stackB, const char *name,
+					t_command_list *list);
 void			pn(t_stack *to, t_stack *from, const char *name, t_command_list *list);
 
 //commands

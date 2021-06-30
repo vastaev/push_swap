@@ -72,12 +72,15 @@ static void	treat_array_of_args(t_stack *stack, int argc, char **argv)
 static void	index_elements(t_stack *stack, int *arrayOfNumbers)
 {
 	t_stack_elem	*ptr;
+	int				i;
 
 	ptr = stack->head;
-	while (ptr)
+	i = 0;
+	while (i < stack->size)
 	{
 		ptr->order = find_index_of_num(ptr->value, arrayOfNumbers);
 		ptr = ptr->next;
+		i++;
 	}
 }
 

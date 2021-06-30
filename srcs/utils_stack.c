@@ -30,6 +30,8 @@ void	add_to_stack(t_stack *stack, t_stack_elem *elem)
 			elem->previous = stack->tail;
 			stack->tail->next = elem;
 			stack->tail = elem;
+			stack->tail->next = stack->head;
+			stack->head->previous = stack->tail;
 		}
 		stack->size++;
 	}
