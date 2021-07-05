@@ -1,18 +1,13 @@
 #include "push_swap.h"
 #include "limits.h"
 
-static void	check_for_number(char *str);
+static int	check_for_number(char *str);
 static void	treat_array_of_args(t_stack *stack, int argc, char **argv);
 static void	treat_args_in_str(t_stack *stack, char **argv);
 static void	index_elements(t_stack *stack, int *arrayOfNumbers);
 
-t_stack	*validation_of_args(int argc, char **argv)
+t_stack	*validation_of_args(int argc, char **argv, t_stack *stackA)
 {
-	t_stack	*stackA;
-
-	stackA = (t_stack *)malloc(sizeof(t_stack));
-	if (stackA == NULL)
-		return (error_msg());
 	stackA->head = NULL;
 	stackA->tail = NULL;
 	stackA->size = 0;
@@ -36,18 +31,24 @@ static void	treat_args_in_str(t_stack *stack, char **argv)
 	j = 0;
 	i = split_len(argv);
 	arrayOfNumbers = (int *)malloc(sizeof(int) * i);
-	if (arrayOfNumbers == NULL)
+	if (NULL == arrayOfNumbers)
+	{
+		free_stack(stack);
 		error_msg();
+	}
 	while (j < i)
 	{
-		check_for_number(argv[j]);
+		if (check_for_number(argv[i]) == 1)
+			free_stack_and_array(stack, arrayOfNumbers, 1);
 		arrayOfNumbers[j] = (int)ft_atoi(argv[j]);
-		add_to_stack(stack, create_new_element(arrayOfNumbers[j]));
-		j++;
+		add_to_stack(stack, create_new_element(arrayOfNumbers[j++]));
 	}
+	if (check_duplicates(arrayOfNumbers, i) == 1)
+		free_stack_and_array(stack, arrayOfNumbers, 1);
+	if (is_sorted(arrayOfNumbers, i) == 1)
+		free_stack_and_array(stack, arrayOfNumbers, 0);
 	bubble_sort(arrayOfNumbers, i);
 	index_elements(stack, arrayOfNumbers);
-	free(arrayOfNumbers);
 }
 
 static void	treat_array_of_args(t_stack *stack, int argc, char **argv)
@@ -58,17 +59,25 @@ static void	treat_array_of_args(t_stack *stack, int argc, char **argv)
 	i = 1;
 	arrayOfNumbers = (int *)malloc(sizeof(int) * (argc - 1));
 	if (NULL == arrayOfNumbers)
+	{
+		free_stack(stack);
 		error_msg();
+	}
 	while (i < argc)
 	{
-		check_for_number(argv[i]);
+		if (check_for_number(argv[i]) == 1)
+			free_stack_and_array(stack, arrayOfNumbers, 1);
 		arrayOfNumbers[i - 1] = (int)ft_atoi(argv[i]);
 		add_to_stack(stack, create_new_element(arrayOfNumbers[i - 1]));
 		i++;
 	}
-	bubble_sort(arrayOfNumbers, i - 1);
+	i--;
+	if (check_duplicates(arrayOfNumbers, i) == 1)
+		free_stack_and_array(stack, arrayOfNumbers, 1);
+	if (is_sorted(arrayOfNumbers, i) == 1)
+		free_stack_and_array(stack, arrayOfNumbers, 0);
+	bubble_sort(arrayOfNumbers, i);
 	index_elements(stack, arrayOfNumbers);
-	free(arrayOfNumbers);
 }
 
 static void	index_elements(t_stack *stack, int *arrayOfNumbers)
@@ -84,17 +93,17 @@ static void	index_elements(t_stack *stack, int *arrayOfNumbers)
 		ptr = ptr->next;
 		i++;
 	}
+	free(arrayOfNumbers);
 }
 
-static void	check_for_number(char *str)
+static int	check_for_number(char *str)
 {
 	long long	num;
 
+	if (!str)
+		return (0);
 	if (ft_strlen(str) > 13)
-		error_msg();
-	num = ft_atoi(str);
-	if (num < INT_MIN || num > INT_MAX)
-		error_msg();
+		return (1);
 	while (ft_isspace(*str))
 		str++;
 	if (*str == '+' || *str == '-')
@@ -102,7 +111,7 @@ static void	check_for_number(char *str)
 	while (ft_isdigit(*str))
 		str++;
 	if (*str == '\0')
-		return ;
+		return (0);
 	else
-		error_msg();
+		return (1);
 }

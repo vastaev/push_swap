@@ -53,7 +53,7 @@ static void	set_best_direction(int steps, t_steps_info newInfo, t_steps_info
 		minInfo->directionA = newInfo.directionA;
 		minInfo->directionB = newInfo.directionB;
 		minInfo->steps = steps;
-		minInfo->isSet = true;
+		minInfo->isSet = TRUE;
 	}
 }
 

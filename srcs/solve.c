@@ -11,7 +11,7 @@ static t_steps_info	*init_struct_info(void)
 	minInfo->directionB = R;
 	minInfo->elemA = NULL;
 	minInfo->elemB = NULL;
-	minInfo->isSet = false;
+	minInfo->isSet = FALSE;
 	minInfo->steps = 0;
 	return (minInfo);
 }
@@ -54,7 +54,7 @@ static void	sortToStackA(t_stack *stackA, t_stack *stackB, t_alg_vars *algVars,
 	minInfo = init_struct_info();
 	while (stackB->size)
 	{
-		minInfo->isSet = false;
+		minInfo->isSet = FALSE;
 		calc_steps(stackA, stackB, algVars, minInfo);
 		move_b(stackA, stackB, minInfo, list);
 		pn(stackA, stackB, "pa", list);
@@ -75,27 +75,17 @@ static void	sendToStackB(t_stack *stackA, t_stack *stackB, t_alg_vars *algVars,
 	}
 }
 
-void	solve(t_stack *stackA, t_stack *stackB, t_command_list *list,
-			  t_alg_vars *algVars)
+void	solve(t_stack *stackA, t_stack *stackB, t_command_list *list)
 {
-	t_stack_elem	*ptr;
-	int				steps;
+	t_alg_vars		*algVars;
 
+	algVars = (t_alg_vars *)malloc(sizeof(t_alg_vars));
 	algVars->mid = stackA->size / 2;
 	algVars->max = stackA->size;
 	sendToStackB(stackA, stackB, algVars, list);
 	sortToStackA(stackA, stackB, algVars, list);
-	ptr = stackA->head;
-	steps = 0;
-	while (ptr->order != 1)
-	{
-		steps++;
-		ptr = ptr->next;
-	}
-	if (steps < algVars->mid)
-		while (stackA->head->order != 1)
-			rn(stackA, "ra", list);
-	else
-		while (stackA->head->order != 1)
-			rrn(stackA, "rra", list);
+	finish_sort_a(stackA, algVars, list);
+	free_stack(stackA);
+	free_stack(stackB);
+	free(algVars);
 }

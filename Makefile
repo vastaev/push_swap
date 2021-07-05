@@ -25,7 +25,8 @@ SRCS_LIST	=	push_swap.c\
 				solve.c\
 				solve_utils.c\
 				for_free.c\
-				solve_direction.c
+				solve_direction.c\
+				solve_small.c
 SRCS_DIR	=	srcs/
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
