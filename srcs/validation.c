@@ -38,7 +38,7 @@ static void	treat_args_in_str(t_stack *stack, char **argv)
 	}
 	while (j < i)
 	{
-		if (check_for_number(argv[i]) == 1)
+		if (check_for_number(argv[j]) == 1)
 			free_stack_and_array(stack, arrayOfNumbers, 1);
 		arrayOfNumbers[j] = (int)ft_atoi(argv[j]);
 		add_to_stack(stack, create_new_element(arrayOfNumbers[j++]));
@@ -103,6 +103,9 @@ static int	check_for_number(char *str)
 	if (!str)
 		return (0);
 	if (ft_strlen(str) > 13)
+		return (1);
+	num = ft_atoi(str);
+	if (num < INT_MIN || num > INT_MAX)
 		return (1);
 	while (ft_isspace(*str))
 		str++;
