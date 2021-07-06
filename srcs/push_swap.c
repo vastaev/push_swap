@@ -28,5 +28,6 @@ int	main(int argc, char **argv)
 		solve(stackA, stackB, list);
 	print_commands(list);
 	free_commands(list);
-	return (0);
+	free_stack(stackA);
+	free_stack(stackB);
 }

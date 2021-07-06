@@ -5,6 +5,7 @@
 # define RR 0
 # define TRUE 1
 # define FALSE 0
+# define BUFFER_SIZE 1
 
 # include "libft.h"
 
@@ -101,5 +102,17 @@ void			free_stack_and_array(t_stack *stack, int *array, int flag);
 
 //utils
 void			*error_msg(void);
+
+//checker
+int				get_next_line(int fd, char **line);
+int				get_ft_strchr(const char *s, int c);
+size_t			get_ft_strlen(const char *s);
+char			*get_ft_strdupchr(const char *s1, unsigned char c);
+char			*get_ft_strjoin(char const *s1, char const *s2);
+int				check_for_number(char *str);
+int				check_argv_dups(int argc, char **argv);
+void			free_all(t_stack *stackA, t_stack *stackB,
+					t_command_list *list);
+int				is_list_sorted(t_stack *stackA);
 
 #endif

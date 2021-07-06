@@ -85,7 +85,5 @@ void	solve(t_stack *stackA, t_stack *stackB, t_command_list *list)
 	sendToStackB(stackA, stackB, algVars, list);
 	sortToStackA(stackA, stackB, algVars, list);
 	finish_sort_a(stackA, algVars, list);
-	free_stack(stackA);
-	free_stack(stackB);
 	free(algVars);
 }
