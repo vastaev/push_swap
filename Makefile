@@ -70,7 +70,7 @@ RED = \033[0;31m
 RESET = \033[0m
 LIBA = libft.a
 
-all : $(NAME_PS) $(NAME_CH)
+all : $(NAME_PS)
 
 $(NAME_CH) : $(LIBFT) $(OBJS_DIR) $(OBJS) $(OBJS_CH)
 	@$(CC) $(LIBFT) $(LIBRARIES) $(INCLUDES) $(OBJS) $(OBJS_CH) -o $(NAME_CH)
