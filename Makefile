@@ -103,7 +103,6 @@ fclean : clean
 	@$(RM) $(NAME_PS)
 	@echo "$(NAME_PS): $(RED)$(NAME_PS) was deleted$(RESET)"
 	@$(RM) $(NAME_CH)
-	@echo "$(NAME_CH): $(RED)$(NAME_CH) was deleted$(RESET)"
 	@$(RM) $(LIBFT)
 	@echo "$(NAME_PS): $(RED)$(LIBA) was deleted$(RESET)"
 

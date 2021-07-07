@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    benchmark.sh                                       :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: cjoanne <cjoanne@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/08/29 17:15:18 by vbrazhni          #+#    #+#              #
-#    Updated: 2021/05/30 12:59:18 by cjoanne          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 #!/bin/bash
 
 MAX=0
@@ -20,8 +8,8 @@ SUM=0
 
 for i in {1..20}
 do
-		export ARG=`ruby -e "puts (1..5).to_a.shuffle.join(' ')"`
-		if ./push_swap $ARG | ./checker_Mac $ARG | grep -q KO
+		export ARG=`ruby -e "puts (1..100).to_a.shuffle.join(' ')"`
+		if ./push_swap $ARG | ./checker $ARG | grep -q KO
 		then
 			echo "Error!"
 			echo $ARG

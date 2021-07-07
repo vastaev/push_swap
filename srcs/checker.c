@@ -46,6 +46,8 @@ void	do_commands(t_stack *stackA, t_stack *stackB, char *command,
 		rn(stackA, "ra", list);
 	else if (ft_strcmp(command, "rb") == 0)
 		rn(stackB, "rb", list);
+	else if (ft_strcmp(command, "rr") == 0)
+		rr(stackA, stackB, "rr", list);
 	else if (ft_strcmp(command, "rra") == 0)
 		rrn(stackA, "rra", list);
 	else if (ft_strcmp(command, "rrb") == 0)
