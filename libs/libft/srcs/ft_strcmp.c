@@ -18,9 +18,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	{
 		if (!ft_charcmp(s1[step], s2[step]))
 			return ((unsigned char)s1[step] - (unsigned char)s2[step]);
-		if ((s1[step] == 0) || (s2[step] == 0))
-			break ;
 		step++;
 	}
-	return (0);
+	return ((unsigned char)s1[step] - (unsigned char)s2[step]);
 }

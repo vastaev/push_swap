@@ -1,136 +1,89 @@
 #include "push_swap.h"
 
-int	is_there_more_than_mid(t_stack *stack, t_alg_vars *algVars)
+static t_steps_info	*init_struct_info(void)
 {
-	t_stack_elem	*ptr;
+	t_steps_info	*minInfo;
 
-	ptr = stack->head;
-	while (ptr)
-	{
-		if (ptr->order >= algVars->mid)
-			return (1);
-		ptr = ptr->next;
-	}
-	return (0);
+	minInfo = (t_steps_info *)malloc(sizeof(t_steps_info));
+	if (NULL == minInfo)
+		error_msg();
+	minInfo->directionA = R;
+	minInfo->directionB = R;
+	minInfo->elemA = NULL;
+	minInfo->elemB = NULL;
+	minInfo->isSet = FALSE;
+	minInfo->steps = 0;
+	return (minInfo);
 }
 
-void	sendNext(t_alg_vars *algVars, t_stack *stackA, t_stack *stackB,
-				 t_command_list *list)
+static void	move_b(t_stack *stackA, t_stack *stackB, t_steps_info *minInfo,
+			   t_command_list *list)
 {
-	t_stack_elem	*ptr;
-
-	ptr = stackB->head;
-	while (ptr->order != algVars->next_to_sort)
-		ptr = ptr->next;
-	
-
-}
-
-void	sendToStackA(t_alg_vars *algVars, t_stack *stackA, t_stack *stackB,
-					 t_command_list *list) // можно сделать одну функцию
-{
-	t_stack_elem	*ptr;
-	int steps_head;
-	int steps_tail;
-
-	while (is_there_more_than_mid(stackB, algVars)) //maybe can be
-		// optimized
+	while (minInfo->elemA != stackA->head || minInfo->elemB != stackB->head)
 	{
-		steps_head = 0;
-		steps_tail = 1;
-		ptr = stackB->head;
-		while (ptr && ptr->order < algVars->mid)
+		if (minInfo->directionA == minInfo->directionB
+			&& minInfo->elemA != stackA->head && minInfo->elemB != stackB->head)
 		{
-//			if (ptr->order == algVars->next_to_sort)
-//			{
-//				pn(stackA, stackB, "pa", list);
-//				rn(stackA, "ra", list);
-//				algVars->flag++;
-//				return ;
-//			}
-			ptr = ptr->next;
-			steps_head++;
+			if (minInfo->directionA == R)
+				rr(stackA, stackB, "rr", list);
+			else
+				rrr(stackA, stackB, "rrr", list);
 		}
-		ptr = stackB->tail;
-		while (ptr && ptr->order < algVars->mid)
+		else if (minInfo->elemA != stackA->head)
 		{
-			ptr = ptr->previous;
-			steps_tail++;
+			if (minInfo->directionA == R)
+				rn(stackA, "ra", list);
+			else
+				rrn(stackA, "rra", list);
 		}
-		if (steps_head <= steps_tail)
+		else if (minInfo->elemB != stackB->head)
 		{
-			while (steps_head--)
+			if (minInfo->directionB == R)
 				rn(stackB, "rb", list);
-			stackB->head->flag = algVars->flag;
-			pn(stackA, stackB, "pa", list);
-		}
-		else if (steps_tail < steps_head)
-		{
-			while (steps_tail--) // ?
+			else
 				rrn(stackB, "rrb", list);
-			stackB->head->flag = algVars->flag;
-			pn(stackA, stackB, "pa", list);
 		}
 	}
 }
 
-void	sendToStackB(t_alg_vars *algVars, t_stack *stackA, t_stack *stackB,
+static void	sortToStackA(t_stack *stackA, t_stack *stackB, t_alg_vars *algVars,
 					 t_command_list *list)
 {
-	t_stack_elem	*ptr;
-	int steps_head;
-	int steps_tail;
+	t_steps_info	*minInfo;
 
-	while (is_there_lower_than_mid(stackA, algVars)) //maybe can be optimized
+	minInfo = init_struct_info();
+	while (stackB->size)
 	{
-		steps_head = 0;
-		steps_tail = 1;
-		ptr = stackA->head;
-		while (ptr->order > algVars->mid)
-		{
-			ptr = ptr->next;
-			steps_head++;
-		}
-		ptr = stackA->tail;
-		while (ptr->order > algVars->mid)
-		{
-			ptr = ptr->previous;
-			steps_tail++;
-		}
-		if (steps_head <= steps_tail)
-		{
-			while (steps_head--)
-				rn(stackA, "ra", list);
-			pn(stackB, stackA, "pb", list);
-		}
-		else if (steps_tail < steps_head)
-		{
-			while (steps_tail--) // ?
-				rrn(stackA, "rra", list);
-			pn(stackB, stackA, "pb", list);
-		}
+		minInfo->isSet = FALSE;
+		calc_steps(stackA, stackB, algVars, minInfo);
+		move_b(stackA, stackB, minInfo, list);
+		pn(stackA, stackB, "pa", list);
+	}
+	free(minInfo);
+}
+
+static void	sendToStackB(t_stack *stackA, t_stack *stackB, t_alg_vars *algVars,
+					 t_command_list *list)
+{
+	while (stackA->size > 2)
+	{
+		if (stackA->head->order == 1 || stackA->head->order == algVars->max)
+			rn(stackA, "ra", list);
+		pn(stackB, stackA, "pb", list);
+		if (stackB->head->order > algVars->max / 2 && stackB->head->next)
+			rn(stackB, "rb", list);
 	}
 }
 
-void	solve(t_stack *stackA, t_stack *stackB, t_command_list *list,
-			  t_alg_vars *algVars)
+void	solve(t_stack *stackA, t_stack *stackB, t_command_list *list)
 {
-	algVars->next_to_sort = 1;
+	t_alg_vars		*algVars;
+
+	algVars = (t_alg_vars *)malloc(sizeof(t_alg_vars));
+	algVars->mid = stackA->size / 2;
 	algVars->max = stackA->size;
-	algVars->mid = (algVars->max / 2) + algVars->next_to_sort;
-	sendToStackB(algVars, stackA, stackB, list);
-//	while (stackB->head)
-//	{
-//		algVars->max = stackB->size;
-//		algVars->mid = ((algVars->max - (algVars->next_to_sort + 1)) / 2) +
-//					   algVars->next_to_sort + 1;
-//		sendToStackA(algVars, stackA, stackB, list);
-//	}
-	algVars->max = stackB->size;
-	algVars->mid = ((algVars->max - (algVars->next_to_sort + 1)) / 2) +
-				   algVars->next_to_sort + 1;
-	sendToStackA(algVars, stackA, stackB, list);
-	algVars->next_to_sort++;
+	sendToStackB(stackA, stackB, algVars, list);
+	sortToStackA(stackA, stackB, algVars, list);
+	finish_sort_a(stackA, algVars, list);
+	free(algVars);
 }
-
-

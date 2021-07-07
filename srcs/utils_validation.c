@@ -59,3 +59,23 @@ int	*bubble_sort(int *arrayOfNumbers, int size)
 	}
 	return (arrayOfNumbers);
 }
+
+int	check_duplicates(const int *arrayOfNumbers, int size)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < size)
+	{
+		j = i + 1;
+		while (j < size)
+		{
+			if (arrayOfNumbers[i] == arrayOfNumbers[j])
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}

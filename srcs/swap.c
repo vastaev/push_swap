@@ -4,7 +4,17 @@ void	sn(t_stack *stack,
 			const char *name,
 			t_command_list *list)
 {
-	if (stack && stack->head && stack->size >= 2)
+	if (stack && stack->head && stack->size == 2)
+	{
+		stack->head->next->next = stack->head;
+		stack->head->next->previous = NULL;
+		stack->head->previous = stack->head->next;
+		stack->head = stack->head->next;
+		stack->head->next->next = NULL;
+		stack->tail = stack->head->next;
+		stack->tail->previous = stack->head;
+	}
+	if (stack && stack->head && stack->size > 2)
 	{
 		stack->head->next->next->previous = stack->head;
 		stack->head = stack->head->next;
@@ -12,6 +22,8 @@ void	sn(t_stack *stack,
 		stack->head->next->previous->next = stack->head->next;
 		stack->head->next = stack->head->next->previous;
 		stack->head->next->previous = stack->head;
+		stack->head->previous = stack->tail;
+		stack->tail->next = stack->head;
 	}
 	if (name && !list)
 		ft_putstrnewline(name);
