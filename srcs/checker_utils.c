@@ -25,6 +25,7 @@ void	free_all(t_stack *stackA, t_stack *stackB, t_command_list *list)
 	free_stack(stackA);
 	free_stack(stackB);
 	free_commands(list);
+	error_msg();
 }
 
 int	is_list_sorted(t_stack *stackA)

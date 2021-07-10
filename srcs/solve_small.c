@@ -57,7 +57,7 @@ static void	sort_five_nums(t_stack *stackA, t_stack *stackB,
 
 void	small_sort(t_stack *stackA, t_stack *stackB, t_command_list *list)
 {
-	if (stackA->size == 2 && stackA->head > stackA->head->next)
+	if (stackA->size == 2 && stackA->head->order > stackA->head->next->order)
 		sn(stackA, "sa", list);
 	else if (stackA->size == 3)
 		sort_three_nums(stackA, list);

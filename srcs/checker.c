@@ -59,10 +59,7 @@ void	do_commands(t_stack *stackA, t_stack *stackB, char *command,
 	else if (ft_strcmp(command, "pb") == 0)
 		pn(stackB, stackA, "pb", list);
 	else
-	{
 		free_all(stackA, stackB, list);
-		error_msg();
-	}
 }
 
 void	read_commands(t_stack *stackA)
