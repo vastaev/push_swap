@@ -1,2 +1,2 @@
 # push_swap
-Проектый клевый, всем советую :)
+Making our own sorting algorithm with certain actions given in subject
